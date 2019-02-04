@@ -22,7 +22,7 @@ seqtk_target:
 
 parafly_target:
 	tar -zxf ${PARAFLY_CODE}.tar.gz && \
-	cd ${PARAFLY_CODE} && find . -type f \( -name Makefile\* -o -name configu\* \) -exec grep -l "\-openmp" {} \; | xargs -n 1 -I {} bash -c 'echo {}; sed -i "s/\-openmp/\-qopenmp/" {}'
+	cd ${PARAFLY_CODE} && sed -i "s/\-openmp/\-qopenmp/" Make* config*
 	cd ${PARAFLY_CODE} && sh ./configure --prefix=`pwd` CXX=$(CXX) CC=$(CC) CFLAGS="-qopenmp" CXXFLAGS="-qopenmp" && $(MAKE) install && \
 	cp bin/ParaFly ../BIN/
 	rm -rf ${PARAFLY_CODE}*
